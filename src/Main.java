@@ -75,7 +75,7 @@ public class Main {
             System.out.println(beauty_json);
         }
 
-        if (average_temp != 999999) {
+        if (average_temp != 999999 && !Double.isNaN(average_temp)) {
             System.out.println("Средняя температура за указанный период " + limit + " дня/дней составляет: " + average_temp + " градусов.\n");
         }
         else {
@@ -142,7 +142,13 @@ public class Main {
 
         try {
             JsonNode rootNode = objectMapper.readTree(json);
-            return rootNode.path("fact").path("temp").intValue();
+            JsonNode check_exists = rootNode.path("fact").findValue("temp");
+            if (check_exists != null) {
+                return rootNode.path("fact").path("temp").intValue();
+            }
+            else {
+                return 999999;
+            }
         } catch (JsonProcessingException e) {
             return 999999;
         }
