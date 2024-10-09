@@ -25,6 +25,7 @@ public class Main {
         System.out.println("Введите долготу в формате координат в десятичных градусах (например, 55.75):\n");
         String lat = "";
         String lon = "";
+
         while (!validate_input_lat) {
             lat = scanner.nextLine();
             if (lat.matches(digRegexp)) {
@@ -34,7 +35,9 @@ public class Main {
             }
 
         }
+
         System.out.println("Введите широту в формате координат в десятичных градусах (например, 37.62):\n");
+
         while (!validate_input_lon) {
             lon = scanner.nextLine();
             if (lon.matches(digRegexp)) {
@@ -44,6 +47,7 @@ public class Main {
             }
 
         }
+
         int limit = 3;
         System.out.println("Введите количество дней для прогноза от 1 до 9 (например 2. По умолчанию 3): \n");
 
