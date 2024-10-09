@@ -68,6 +68,7 @@ public class Main {
         double average_temp = json_processing_avg(result_json);
         int fact_temp = json_processing_fact_temp(result_json);
         String beauty_json = json_beautifier(result_json);
+
         if (!beauty_json.equals("Json сломался в обработке, извините =(")) {
             System.out.println("Сер, Ваш красивый Json целиком: \n" + beauty_json + "\n");
         }
