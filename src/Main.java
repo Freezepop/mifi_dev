@@ -105,7 +105,7 @@ public class Main {
                 .build();
         HttpRequest request = HttpRequest.newBuilder().
                 uri(URI.create(url))
-                .header("X-Yandex-Weather-Key", "") // Надо свой токен вводить =)
+                .header("X-Yandex-Weather-Key", "") // Надо свой токен вводить =
                 .build();
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -124,16 +124,16 @@ public class Main {
             JsonNode dataArray = rootNode.path("forecasts");
 
             int sum = 0;
-            int couunt = 0;
+            int count = 0;
 
             for (JsonNode node : dataArray) {
-                // Да-да, в задании не было указано какой именно температуры, поэтому я решил себе упростить жизнь и считать из поля day_short для каждого дня =)
+                // Да-да, в задании не было указано какой именно температуры, поэтому я решил себе упростить жизнь и считать из поля day_short для каждого дня
                 int day_temp = node.path("parts").path("day_short").path("temp").intValue();
                 sum += day_temp;
-                couunt++;
+                count++;
             }
 
-            return (double) sum / couunt;
+            return (double) sum / count;
 
         }
         catch (JsonProcessingException e) {
