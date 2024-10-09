@@ -68,8 +68,12 @@ public class Main {
         double average_temp = json_processing_avg(result_json);
         int fact_temp = json_processing_fact_temp(result_json);
         String beauty_json = json_beautifier(result_json);
-
-        System.out.println("Сер, Ваш красивый Json целиком: \n" + beauty_json + "\n");
+        if (!beauty_json.equals("Json сломался в обработке, извините =(")) {
+            System.out.println("Сер, Ваш красивый Json целиком: \n" + beauty_json + "\n");
+        }
+        else {
+            System.out.println(beauty_json);
+        }
 
         if (average_temp != 999999) {
             System.out.println("Средняя температура за указанный период " + limit + " дня/дней составляет: " + average_temp + " градусов.\n");
