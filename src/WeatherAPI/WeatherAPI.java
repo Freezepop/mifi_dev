@@ -1,3 +1,5 @@
+package WeatherAPI;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,7 +12,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Scanner;
 
-public class Main {
+public class WeatherAPI {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
