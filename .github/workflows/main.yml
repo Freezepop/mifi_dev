@@ -63,8 +63,12 @@ jobs:
         
           cd /tmp
         
+          git clone https://github.com/your-user/your-repo.git || cd mifi_dev
           git pull origin main
-      
+          
+          sudo apt update
+          sudo apt install python3 python3-pip
+          
           pip3 install flask pytest pytest-cov
 
           sudo cp /tmp/mifi_dev/redirect_flask_app/flask-redirect.service /etc/systemd/system/flask-redirect.service
