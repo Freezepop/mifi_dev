@@ -27,7 +27,7 @@ jobs:
     - name: Set PYTHONPATH for Windows
       if: runner.os == 'Windows'
       run: |
-        powershell -Command "$env:PYTHONPATH = '${PWD}'; echo 'PYTHONPATH is set to' $env:PYTHONPATH"
+        powershell -Command "$env:PYTHONPATH = '${PWD}'"
 
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v4
