@@ -21,8 +21,8 @@ jobs:
 
     - name: Set PYTHONPATH
       run: |
-        if [[ $RUNNER_OS == 'Windows' ]]; then
-          $env:PYTHONPATH = "${PWD}"
+        if [ $RUNNER_OS == 'Windows' ]; then
+          powershell -Command "$env:PYTHONPATH = '${PWD}'"
         else
           echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
         fi
