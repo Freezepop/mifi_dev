@@ -19,20 +19,29 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: Set PYTHONPATH for Linux/macOS
-      if: runner.os != 'Windows'
+    - name: Set PYTHONPATH for all platforms
       run: |
+        echo "Setting PYTHONPATH..."
         echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
-
-    - name: Set PYTHONPATH for Windows
-      if: runner.os == 'Windows'
-      run: |
-        echo "Setting PYTHONPATH for Windows..."
-        powershell -Command "[System.Environment]::SetEnvironmentVariable('PYTHONPATH', '${PWD}', [System.EnvironmentVariableTarget]::Process)"
-        echo "PYTHONPATH is: $env:PYTHONPATH"
-        echo "Current working directory: $PWD"
+        echo "PYTHONPATH is: $PYTHONPATH"
+        echo "Current working directory: $(pwd)"
         echo "List of installed Python packages:"
-        powershell -Command "pip list"
+        pip list
+
+#    - name: Set PYTHONPATH for Linux/macOS
+#      if: runner.os != 'Windows'
+#      run: |
+#        echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
+#
+#    - name: Set PYTHONPATH for Windows
+#      if: runner.os == 'Windows'
+#      run: |
+#        echo "Setting PYTHONPATH for Windows..."
+#        powershell -Command "[System.Environment]::SetEnvironmentVariable('PYTHONPATH', '${PWD}', [System.EnvironmentVariableTarget]::Process)"
+#        echo "PYTHONPATH is: $env:PYTHONPATH"
+#        echo "Current working directory: $PWD"
+#        echo "List of installed Python packages:"
+#        powershell -Command "pip list"
         
 
     - name: Set up Python ${{ matrix.python-version }}
