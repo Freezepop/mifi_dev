@@ -31,7 +31,7 @@ jobs:
 
     - name: Run tests
       run: |
-        pytest --cov=app tests/
+        pytest --cov=redirect_flask_app tests/
 
   deploy:
     needs: build-and-test
