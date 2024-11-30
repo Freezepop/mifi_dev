@@ -27,8 +27,8 @@ jobs:
     - name: Set PYTHONPATH for Windows
       if: runner.os == 'Windows'
       run: |
-        powershell -Command "[System.Environment]::SetEnvironmentVariable('PYTHONPATH', '${PWD}', [System.EnvironmentVariableTarget]::Process)"
-        
+        $env:PYTHONPATH = "$(pwd)"
+        echo "PYTHONPATH=$env:PYTHONPATH" >> $env:GITHUB_ENV
 
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v4
@@ -42,6 +42,7 @@ jobs:
 
     - name: Run tests
       run: |
+        powershell -Command "pip list"
         pytest --cov=redirect_flask_app tests/
 
   deploy:
