@@ -1,0 +1,12 @@
+[Unit]
+Description=Flask Redirect Service
+After=network.target
+
+[Service]
+User=jew2000
+WorkingDirectory=/opt/
+ExecStart=/usr/bin/python3 /opt/redirect_flask_app.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

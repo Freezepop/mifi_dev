@@ -40,6 +40,23 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
+    - name: Setup SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H 185.242.106.225 >> ~/.ssh/known_hosts
+
     - name: Deploy to server
       run: |
-        echo "Deployment commands here, e.g., SSH or Heroku deploy"
+        ssh -o StrictHostKeyChecking=no jew2000@185.242.106.225 <<EOF
+          cd /tmp
+          git pull origin main
+      
+          pip3 install flask pytest pytest-cov
+
+          sudo cp service/flask-redirect.service /etc/systemd/system/flask-redirect.service
+      
+          sudo systemctl daemon-reload; sudo systemctl enable --now flask-redirect.service
+          sudo systemctl status flask-redirect.service --no-pager
+        EOF
