@@ -59,7 +59,7 @@ jobs:
 
     - name: Deploy to server
       run: |
-        ssh -o StrictHostKeyChecking=no jew2000@185.242.106.225 <<EOF
+        ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_ADDRESS }} <<EOF
           cd /tmp
           git pull origin main
       
