@@ -61,19 +61,22 @@ jobs:
       run: |
         ssh -o StrictHostKeyChecking=no -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_ADDRESS }} <<EOF
         
-          cd /tmp
-        
           git clone https://github.com/your-user/your-repo.git || cd mifi_dev
           git pull origin main
           
-          ls -lh /tmp
           
           sudo apt update -y
           sudo apt install python3 python3-pip -y
           
           pip3 install flask pytest pytest-cov
+          
+          ls -lh
+          
+          cd ~/mifi_dev
+          
+          ls -lh
 
-          sudo cp /tmp/mifi_dev/redirect_flask_app/flask-redirect.service /etc/systemd/system/flask-redirect.service
+          sudo cp redirect_flask_app/flask-redirect.service /etc/systemd/system/flask-redirect.service
       
           sudo systemctl daemon-reload; sudo systemctl enable --now flask-redirect.service
           sudo systemctl status flask-redirect.service --no-pager
