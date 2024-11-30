@@ -14,4 +14,4 @@ def redirect_by_url():
         return "No URL for redirection", 400
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=10070)
+    app.run(host="0.0.0.0", port=10071)
