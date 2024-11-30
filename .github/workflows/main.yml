@@ -19,14 +19,15 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: Set PYTHONPATH
+    - name: Set PYTHONPATH for Linux/macOS
+      if: runner.os != 'Windows'
       run: |
-        if [ "${RUNNER_OS}" == "Linux" ] || [ "${RUNNER_OS}" == "macOS" ]; then
-          echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
-        # Для Windows используем PowerShell
-        elif [ "${RUNNER_OS}" == "Windows" ]; then
-          powershell -Command "$env:PYTHONPATH = '${PWD}'"
-        fi
+        echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
+
+    - name: Set PYTHONPATH for Windows
+      if: runner.os == 'Windows'
+      run: |
+        powershell -Command "$env:PYTHONPATH = '${PWD}'; echo 'PYTHONPATH is set to' $env:PYTHONPATH"
 
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v4
