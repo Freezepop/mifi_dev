@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import pytest
-from redirect_flask_app import app
+from redirect_flask_app.redirect_flask_app import app
 
 
 @pytest.fixture
