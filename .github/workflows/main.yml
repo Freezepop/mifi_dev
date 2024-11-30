@@ -66,8 +66,10 @@ jobs:
           git clone https://github.com/your-user/your-repo.git || cd mifi_dev
           git pull origin main
           
-          sudo apt update
-          sudo apt install python3 python3-pip
+          ls -lh /tmp
+          
+          sudo apt update -y
+          sudo apt install python3 python3-pip -y
           
           pip3 install flask pytest pytest-cov
 
