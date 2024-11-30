@@ -21,7 +21,11 @@ jobs:
 
     - name: Set PYTHONPATH
       run: |
-        echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
+        if [ $RUNNER_OS == 'Windows' ]; then
+          set PYTHONPATH=%CD%
+        else
+          echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
+        fi
 
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v4
