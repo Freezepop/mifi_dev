@@ -22,7 +22,7 @@ jobs:
     - name: Set PYTHONPATH
       run: |
         if [ $RUNNER_OS == 'Windows' ]; then
-          set PYTHONPATH=%CD%
+          $env:PYTHONPATH = "${PWD}"
         else
           echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
         fi
