@@ -21,10 +21,11 @@ jobs:
 
     - name: Set PYTHONPATH
       run: |
-        if [ $RUNNER_OS == 'Windows' ]; then
-          powershell -Command "$env:PYTHONPATH = '${PWD}'"
-        else
+        if [ "${RUNNER_OS}" == "Linux" ] || [ "${RUNNER_OS}" == "macOS" ]; then
           echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
+        # Для Windows используем PowerShell
+        elif [ "${RUNNER_OS}" == "Windows" ]; then
+          powershell -Command "$env:PYTHONPATH = '${PWD}'"
         fi
 
     - name: Set up Python ${{ matrix.python-version }}
