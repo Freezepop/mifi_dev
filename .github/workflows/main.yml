@@ -56,10 +56,11 @@ jobs:
       run: |
         mkdir -p ~/.ssh
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        cat ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
-        ls -l ~/.ssh
+        touch ~/.ssh/known_hosts
+        chmod 644 ~/.ssh/known_hosts
         ssh-keyscan -H 185.242.106.225 >> ~/.ssh/known_hosts
-        ls -l ~/.ssh
 
     - name: Deploy to server
       run: |
