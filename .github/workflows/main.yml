@@ -69,10 +69,8 @@ jobs:
           sudo apt install python3 python3-pip -y
           
           pip3 install flask pytest pytest-cov
-          
-          ls -lh
-
-          sudo cp redirect_flask_app/flask-redirect.service /etc/systemd/system/flask-redirect.service
+        
+          sudo cp mifi_dev/redirect_flask_app/flask-redirect.service /etc/systemd/system/flask-redirect.service
       
           sudo systemctl daemon-reload; sudo systemctl enable --now flask-redirect.service
           sudo systemctl status flask-redirect.service --no-pager
