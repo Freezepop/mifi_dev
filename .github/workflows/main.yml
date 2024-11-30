@@ -28,7 +28,8 @@ jobs:
       if: runner.os == 'Windows'
       run: |
         echo "Setting PYTHONPATH for Windows..."
-        powershell -Command "$env:PYTHONPATH = '${PWD}'; Write-Host 'PYTHONPATH is: $env:PYTHONPATH'"
+        powershell -Command "[System.Environment]::SetEnvironmentVariable('PYTHONPATH', '${PWD}', 'User')"
+        echo "PYTHONPATH is: $env:PYTHONPATH"
         echo "Current working directory: $PWD"
         echo "List of installed Python packages:"
         powershell -Command "pip list"
