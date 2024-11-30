@@ -66,8 +66,8 @@ jobs:
           
           sudo apt update -y
           sudo apt install python3 python3-pip -y
-          
           pip3 install flask pytest pytest-cov
+          sudo apt autoremove -y
         
           sudo cp redirect_flask_app/flask-redirect.service /etc/systemd/system
           sudo cp redirect_flask_app/redirect_flask_app.py /opt; sudo chmod 755 /opt/redirect_flask_app.py
