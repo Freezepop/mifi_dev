@@ -60,12 +60,14 @@ jobs:
     - name: Deploy to server
       run: |
         ssh -o StrictHostKeyChecking=no -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_ADDRESS }} <<EOF
+        
           cd /tmp
+        
           git pull origin main
       
           pip3 install flask pytest pytest-cov
 
-          sudo cp redirect_flask_app/flask-redirect.service /etc/systemd/system/flask-redirect.service
+          sudo cp /tmp/mifi_dev/redirect_flask_app/flask-redirect.service /etc/systemd/system/flask-redirect.service
       
           sudo systemctl daemon-reload; sudo systemctl enable --now flask-redirect.service
           sudo systemctl status flask-redirect.service --no-pager
