@@ -60,7 +60,8 @@ jobs:
     - name: Deploy to server
       run: |
         ssh -o StrictHostKeyChecking=no -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_ADDRESS }} <<EOF
-        
+           
+           
           git clone https://github.com/Freezepop/mifi_dev.git; cd mifi_dev || cd mifi_dev
           git pull origin main
           
