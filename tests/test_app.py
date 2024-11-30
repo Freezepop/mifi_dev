@@ -19,4 +19,4 @@ def test_redirect_with_url(client):
 def test_redirect_without_url(client):
     response = client.get("/redirect")
     assert response.status_code == 400
-    assert 'No URL for redirection' in response.data
+    assert b"No URL for redirection" in response.data
