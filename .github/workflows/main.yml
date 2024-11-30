@@ -28,6 +28,7 @@ jobs:
       if: runner.os == 'Windows'
       run: |
         powershell -Command "$env:PYTHONPATH = '${PWD}'"
+        powershell -Command "Write-Host 'Current working directory: ${PWD}'"
 
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v4
