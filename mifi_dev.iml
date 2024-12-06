@@ -15,5 +15,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" name="Python 3.12 (mifi_dev) interpreter library" level="application" />
+    <orderEntry type="library" name="xerial.sqlite.jdbc" level="application" />
   </component>
 </module>
