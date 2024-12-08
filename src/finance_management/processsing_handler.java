@@ -181,10 +181,17 @@ public interface processsing_handler {
                     pstmt_get_friend.setString(1, friend_name);
                     ResultSet rs_get_friend = pstmt_get_friend.executeQuery();
                     String friend_uuid = rs_get_friend.getString("uuid");
-                    createCategory(cursor, friend_uuid, "bro_bonus", "-1");
-                    createCategory(cursor, user_uuid, "bro_bonus", "-1");
                     String category_friend_uuid = checkCategory(cursor, "bro_bonus", friend_uuid);
                     String category_my_uuid = checkCategory(cursor, "bro_bonus", user_uuid);
+                    if (category_my_uuid == null){
+                        createCategory(cursor, user_uuid, "bro_bonus", "-1");
+                        category_my_uuid = checkCategory(cursor, "bro_bonus", user_uuid);
+
+                    }
+                    if (category_friend_uuid == null) {
+                        createCategory(cursor, friend_uuid, "bro_bonus", "-1");
+                        category_friend_uuid = checkCategory(cursor, "bro_bonus", friend_uuid);
+                    }
                     writeIncome(cursor, category_friend_uuid, value);
                     writeExpense(cursor, category_my_uuid, value);
                     return 1;
