@@ -12,9 +12,9 @@ public interface processsing_handler {
 
     static String getUserUUID(Connection cursor, String name) throws SQLException {
 
-        String insertSQL = "SELECT uuid FROM users WHERE name = ?";
+        String sql = "SELECT uuid FROM users WHERE name = ?";
 
-        try (PreparedStatement pstmt = cursor.prepareStatement(insertSQL)) {
+        try (PreparedStatement pstmt = cursor.prepareStatement(sql)) {
             pstmt.setString(1, name);
             ResultSet rs = pstmt.executeQuery();
             return rs.getString("uuid");
@@ -34,9 +34,9 @@ public interface processsing_handler {
 
     static void writeExpense(Connection cursor, String category_uuid, String value) throws SQLException {
 
-        String sql = "INSERT INTO transactions (category_uuid, value, income) VALUES (?, ?, false)";
+        String insertSQL = "INSERT INTO transactions (category_uuid, value, income) VALUES (?, ?, false)";
 
-        try (PreparedStatement insert_pstmt = cursor.prepareStatement(sql)) {
+        try (PreparedStatement insert_pstmt = cursor.prepareStatement(insertSQL)) {
             insert_pstmt.setString(1, category_uuid);
             insert_pstmt.setString(2, value);
             insert_pstmt.executeUpdate();
@@ -45,9 +45,9 @@ public interface processsing_handler {
 
     static String checkCategory(Connection cursor, String category, String user_uuid) throws SQLException {
 
-        String insertSQL = "SELECT uuid FROM categories WHERE name = ? AND user_uuid = ?";
+        String sql = "SELECT uuid FROM categories WHERE name = ? AND user_uuid = ?";
 
-        try (PreparedStatement pstmt = cursor.prepareStatement(insertSQL)) {
+        try (PreparedStatement pstmt = cursor.prepareStatement(sql)) {
             pstmt.setString(1, category);
             pstmt.setString(2, user_uuid);
             ResultSet rs = pstmt.executeQuery();
@@ -59,11 +59,11 @@ public interface processsing_handler {
 
         String sql = "INSERT INTO categories (user_uuid, name, limit_value) VALUES (?, ?, ?)";
 
-        try (PreparedStatement insert_pstmt = cursor.prepareStatement(sql)) {
-            insert_pstmt.setString(1, user_uuid);
-            insert_pstmt.setString(2, category_name);
-            insert_pstmt.setInt(3, Integer.parseInt(limit_value));
-            insert_pstmt.executeUpdate();
+        try (PreparedStatement pstmt = cursor.prepareStatement(sql)) {
+            pstmt.setString(1, user_uuid);
+            pstmt.setString(2, category_name);
+            pstmt.setInt(3, Integer.parseInt(limit_value));
+            pstmt.executeUpdate();
         }
     }
 
@@ -183,15 +183,16 @@ public interface processsing_handler {
                     String friend_uuid = rs_get_friend.getString("uuid");
                     String category_friend_uuid = checkCategory(cursor, "bro_bonus", friend_uuid);
                     String category_my_uuid = checkCategory(cursor, "bro_bonus", user_uuid);
+
                     if (category_my_uuid == null){
                         createCategory(cursor, user_uuid, "bro_bonus", "-1");
                         category_my_uuid = checkCategory(cursor, "bro_bonus", user_uuid);
-
                     }
                     if (category_friend_uuid == null) {
                         createCategory(cursor, friend_uuid, "bro_bonus", "-1");
                         category_friend_uuid = checkCategory(cursor, "bro_bonus", friend_uuid);
                     }
+
                     writeIncome(cursor, category_friend_uuid, value);
                     writeExpense(cursor, category_my_uuid, value);
                     return 1;
