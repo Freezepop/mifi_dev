@@ -27,7 +27,9 @@ public class authentication {
                 if (auth_result == 1) {
                     new processsing().run(scanner, cursor, name);
                 }
-                System.out.println(auth_result);
+                else {
+                    System.out.println("Аккаунта с такими данным не найдено, попробуйте зарегистрироваться.\n\n");
+                }
             }
             else if (answer.equals("2")) {
                 System.out.println("Введите логин:\n");

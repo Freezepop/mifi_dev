@@ -23,12 +23,10 @@ public class processsing {
                     4 - Выполнить расчет бюджета
                     5 - Подкрутить бюджет для категории
                     6 - СБП по имени
-                    7 - Выход из аккаунта, возврат к меню авторизации
+                    exit - Выход из аккаунта, возврат к меню авторизации
                     """);
 
         while (run) {
-
-
 
             System.out.println(menu);
 
@@ -36,32 +34,44 @@ public class processsing {
 
             if (answer.equals("1")) {
                 System.out.println("Укажите категорию и значение в формате \"Еда: 300\".");
-                String[] income_value = scanner.nextLine().split(":");
-                String category = income_value[0];
-                String value = income_value[1].strip();
-                String category_uuid = processsing_handler.checkCategory(cursor, category, user_uuid);
-                if (category_uuid != null) {
-                    processsing_handler.writeIncome(cursor, category_uuid, value);
-                    System.out.printf("Вы успешно записали доход %s по категории %s.\n", value, category);
+                String income_value_data = scanner.nextLine();
+                if (income_value_data.contains(":")) {
+                    String[] income_value = income_value_data.split(":");
+                    String category = income_value[0];
+                    String value = income_value[1].strip();
+                    String category_uuid = processsing_handler.checkCategory(cursor, category, user_uuid);
+                    if (category_uuid != null) {
+                        processsing_handler.writeIncome(cursor, category_uuid, value);
+                        System.out.printf("Вы успешно записали доход %s по категории %s.\n", value, category);
+                    }
+                    else {
+                        System.out.println("Операция не удалась, такой категории не существует. Создайте ее выбрав соответствующий пункт меню.\n");
+                    }
                 }
                 else {
-                    System.out.println("Операция не удалась, такой категории не существует. Создайте ее выбрав соответствующий пункт меню.\n");
+                    System.out.println("Значение не распознано. Требуемый формат ввода \"Еда: 300\".");
                 }
                 processsing_handler.calculateWallet(cursor, user_uuid);
             }
 
             else if (answer.equals("2")) {
                 System.out.println("Укажите категорию и значение в формате \"Еда: 300\".");
-                String[] income_value = scanner.nextLine().split(":");
-                String category = income_value[0];
-                String value = income_value[1].strip();
-                String category_uuid = processsing_handler.checkCategory(cursor, category, user_uuid);
-                if (category_uuid != null) {
-                    processsing_handler.writeExpense(cursor, category_uuid, value);
-                    System.out.printf("Вы успешно записали расход %s по категории %s.\n", value, category);
+                String income_value_data = scanner.nextLine();
+                if (income_value_data.contains(":")) {
+                    String[] income_value = income_value_data.split(":");
+                    String category = income_value[0];
+                    String value = income_value[1].strip();
+                    String category_uuid = processsing_handler.checkCategory(cursor, category, user_uuid);
+                    if (category_uuid != null) {
+                        processsing_handler.writeExpense(cursor, category_uuid, value);
+                        System.out.printf("Вы успешно записали расход %s по категории %s.\n", value, category);
+                    }
+                    else {
+                        System.out.println("Операция не удалась, такой категории не существует. Создайте ее выбрав соответствующий пункт меню.\n");
+                    }
                 }
                 else {
-                    System.out.println("Операция не удалась, такой категории не существует. Создайте ее выбрав соответствующий пункт меню.\n");
+                    System.out.println("Значение не распознано. Требуемый формат ввода \"Еда: 300\".");
                 }
                 processsing_handler.calculateWallet(cursor, user_uuid);
             }
@@ -227,8 +237,11 @@ public class processsing {
 
             }
 
-            else if (answer.equals("7")) {
+            else if (answer.equals("exit")) {
                 run = false;
+            }
+            else {
+                System.out.println("Требуется выбрать пункт меню 1, 2 и т.д. или exit для выхода к меню авторизации.");
             }
         }
     }
